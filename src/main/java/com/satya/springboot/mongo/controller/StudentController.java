@@ -1,6 +1,7 @@
 package com.satya.springboot.mongo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,12 +37,18 @@ public class StudentController {
 	}
 	
 	@GetMapping("/getStudentDetails/{studentId}")
-	public Optional<Student> findStudentDetailsByStudentId(@PathVariable String studentId) {
+	public Optional<Student> findStudentDetailsByStudentId(@PathVariable("studentId") String studentId) {
 		System.out.println("inside method to fetch the individual details of the student by studentId"+studentId);
 		
 		return studentRepository.findById(studentId);
 		
 		
+	}
+	
+	@DeleteMapping("/studentDetails/{studentId}")
+	public void deleteStudentByStudentId(@PathVariable("studentId") String studentId) {
+		System.out.println("deleting the student record by studentId");
+		studentRepository.deleteById(studentId);
 	}
 
 }
